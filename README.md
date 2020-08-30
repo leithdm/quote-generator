@@ -7,4 +7,4 @@ A simple quote generator using Vanilla JavaScript, HTML5, CSS3.
 3. Mobile responsive. Font-Awesome icons, Google Fonts, background image by: http://www.heropatterns.com/
 
 ## Issues:
-1. The free API (http://api.forismatic.com) gets overloaded with requests, preventing quotes from being returned. Net result is a blank quote. 
+1. The free API (http://api.forismatic.com) frequently has a http status code 429, because there is too much traffic.
