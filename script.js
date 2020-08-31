@@ -4,10 +4,15 @@ const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
+const QUOTE_ARRAY_MAX = 1643;
 
 function showLoadingSpinner() {
     spinner.hidden = false; 
     quoteContainer.hidden = true; 
+}
+
+function returnRandomQuote() {
+    return Math.floor(Math.random() * (QUOTE_ARRAY_MAX + 1));
 }
 
 function removeLoadingSpinner() {
@@ -20,28 +25,27 @@ function removeLoadingSpinner() {
 // Asynchronous Fetch Function
 async function getQuote() {
     showLoadingSpinner(); 
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-    const apiUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json'; 
+    const apiUrl = 'https://type.fit/api/quotes'; 
     try {
         //Will make API call from the headers of a proxy call to circumvent CORS error
-        const response = await fetch(proxyUrl + apiUrl); 
+        const response = await fetch(apiUrl); 
         const data = await response.json(); 
         //If author is blank, add 'Unknown
-        if (data.quoteAuthor === '') {
+        const randomQuote = returnRandomQuote();
+        if (data[randomQuote].author === null) {
             authorText.innerText = 'Unknown'
         } else {
-            authorText.innerText = data.quoteAuthor;
+            authorText.innerText = data[randomQuote].author;
         }
         //Reduce font size for long quotes by assigning classList('long-quote)
-        if (data.quoteText.length > 120) {
+        if (data[randomQuote].text.length > 120) {
             quoteText.classList.add('long-quote');
         } else {
             quoteText.classList.remove('long-quote');
         }
-        quoteText.innerText = data.quoteText;
+        quoteText.innerText = data[randomQuote].text;
         removeLoadingSpinner(); 
     } catch (error) {
-        //frequently a formatting error. One solution is to call getQuote again until we get a suitable quote. This is an issue related to the API.
         console.log('Error', error);
     }
 }
