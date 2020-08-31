@@ -11,7 +11,7 @@ function showLoadingSpinner() {
     quoteContainer.hidden = true; 
 }
 
-function returnRandomQuote() {
+function getRandomQuote() {
     return Math.floor(Math.random() * (QUOTE_ARRAY_MAX + 1));
 }
 
@@ -31,7 +31,7 @@ async function getQuote() {
         const response = await fetch(apiUrl); 
         const data = await response.json(); 
         //If author is blank, add 'Unknown
-        const randomQuote = returnRandomQuote();
+        let randomQuote = getRandomQuote();
         if (data[randomQuote].author === null) {
             authorText.innerText = 'Unknown'
         } else {
