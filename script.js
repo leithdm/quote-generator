@@ -5,6 +5,7 @@ const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
 const QUOTE_ARRAY_MAX = 1643;
+const apiUrl = 'https://type.fit/api/quotes';
 
 function showLoadingSpinner() {
     spinner.hidden = false; 
@@ -25,12 +26,11 @@ function removeLoadingSpinner() {
 // Asynchronous Fetch Function
 async function getQuote() {
     showLoadingSpinner(); 
-    const apiUrl = 'https://type.fit/api/quotes'; 
+    ; 
     try {
-        //Will make API call from the headers of a proxy call to circumvent CORS error
         const response = await fetch(apiUrl); 
         const data = await response.json(); 
-        //If author is blank, add 'Unknown
+        //If author is null, add 'Unknown
         let randomQuote = getRandomQuote();
         if (data[randomQuote].author === null) {
             authorText.innerText = 'Unknown'
