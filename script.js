@@ -29,8 +29,8 @@ async function getQuote() {
     try {
         const response = await fetch(apiUrl); 
         const data = await response.json(); 
-        //If author is null, add 'Unknown
         let randomQuote = getRandomQuote();
+        //If author is null, add 'Unknown
         if (data[randomQuote].author === null) {
             authorText.innerText = 'Unknown'
         } else {
