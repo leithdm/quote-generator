@@ -26,7 +26,6 @@ function removeLoadingSpinner() {
 // Asynchronous Fetch Function
 async function getQuote() {
     showLoadingSpinner(); 
-    ; 
     try {
         const response = await fetch(apiUrl); 
         const data = await response.json(); 
